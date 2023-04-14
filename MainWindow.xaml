@@ -1,0 +1,48 @@
+﻿<Window x:Class="demo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:demo"
+        mc:Ignorable="d"
+        Title="ООО Hello kitti"
+        MinHeight="650"
+        MinWidth="800"
+        WindowStartupLocation="CenterScreen" 
+        ResizeMode="NoResize"
+        Background="#FFFFF9F1" 
+        Foreground="#FFFFF9F1">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Frame x:Name="mainFrame" Grid.Column="0" Grid.Row="1"
+               NavigationUIVisibility="Hidden"/>
+        <DockPanel Background="#FFBACBD2" LastChildFill="False"  Grid.Row="0">
+            
+            <Button x:Name="closeBtn"
+                    DockPanel.Dock="Right"
+                    Width="70"
+                    Content="Выйти"
+                    Click="closeBtn_Click">
+            </Button>
+            <Button x:Name="backBtn"
+                   DockPanel.Dock="Right"
+                    Width="70"
+                    Content="Назад"
+                    Click="backBtn_Click">
+            </Button>
+        </DockPanel>
+        <StackPanel  
+                     HorizontalAlignment="Left"
+                     Orientation="Horizontal">
+            <Image Source="/Images/VHS.ico" Margin="10,0"/>
+            <Label  FontSize="30"
+                     FontWeight="DemiBold"
+                     Height="50"
+                     Content="Hermes">
+            </Label>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,40 @@
+﻿<Page x:Class="demo.Pages.VisitPage1xaml"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:demo.Pages"
+      mc:Ignorable="d" 
+      MinHeight="450" MinWidth="800"
+      Title="VisitPage1xaml" Background="Transparent">
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <TextBlock FontSize="20">День недели:</TextBlock>
+            <ComboBox x:Name="visitsCB" Grid.Row="0" SelectionChanged="ComboBox_SelectionChanged" Height="30" Width="150" Margin="295,0,288,0">
+                <Label Content="Понедельник"></Label>
+                <Label Content="Вторник"></Label>
+                <Label Content="Среда"></Label>
+                <Label Content="Четверг"></Label>
+                <Label Content="Пятница"></Label>
+                <Label Content="Суббота"></Label>
+                <Label Content="Воскресенье"></Label>
+                <Label Content="Все"></Label>
+            </ComboBox>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" x:Name="visitDG" CanUserAddRows="False"
+                  AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="id" Width="*" Binding="{Binding Id}"></DataGridTextColumn>
+                <DataGridTextColumn Header="фамилия" Width="*" Binding="{Binding Client.Firstname}"></DataGridTextColumn>
+                <DataGridTextColumn Header="имя"  Width="*" Binding="{Binding Client.Lastname}"></DataGridTextColumn>
+                <DataGridTextColumn Header="отчество"  Width="*" Binding="{Binding Client.Patronymic}"></DataGridTextColumn>
+                <DataGridTextColumn Header="дата"  Width="*" Binding="{Binding Date, StringFormat=dd.MM.yyyy}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

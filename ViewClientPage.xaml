@@ -1,0 +1,198 @@
+﻿<Page x:Class="demo.Pages.ViewClientPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:demo.Pages"
+      mc:Ignorable="d" 
+      MinHeight="650" MinWidth="800"
+      Title="ViewClientPage"
+      Loaded="Page_Loaded">
+
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="140"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Vertical"
+                    Margin="80,10,10,10"
+                    Grid.Row="0"
+                    Grid.Column="0">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="20,0,0,0">
+                    Кол-во страниц: 
+                </TextBlock>
+                <ComboBox x:Name="pageCB"
+                      Width="100"
+                      Height="30"
+                      Margin="5"
+                      SelectionChanged="pageCB_SelectionChanged">
+                </ComboBox>
+                <TextBlock>
+                    Фамилия
+                </TextBlock>
+                <TextBox x:Name="surnameFilter"
+                        PreviewTextInput="surnameFilter_PreviewTextInput" 
+                         TextChanged="surnameFilter_TextChanged"/>
+                <TextBlock>
+                    Имя
+                </TextBlock>
+                <TextBox x:Name="nameFilter"
+                          PreviewTextInput="nameFilter_PreviewTextInput"
+                         TextChanged="nameFilter_TextChanged"/>
+                <TextBlock>
+                    Отчество
+                </TextBlock>
+                <TextBox x:Name="patronymicFilter"
+                          PreviewTextInput="patronymicFilter_PreviewTextInput"
+                         TextChanged="patronymicFilter_TextChanged"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock >
+                    Номер телефона:
+                </TextBlock>
+                <TextBox x:Name="phoneFilter"
+                         PreviewTextInput="phoneFilter_PreviewTextInput"
+                         TextChanged="phoneFilter_TextChanged"/>
+                <TextBlock Margin="35,0,0,0">
+                    Email
+                </TextBlock>
+                <TextBox x:Name="emailFilter"
+                         TextChanged="emailFilter_TextChanged"/>
+                <TextBlock Margin="35,0,-20,0">
+                    Пол
+                </TextBlock>
+                <ComboBox x:Name="genderCB"
+                      Width="178"
+                      Margin="35,0,0,0"
+                      Height="30"
+                      SelectionChanged="genderCB_SelectionChanged"
+                      SelectedItem="{Binding Name}"
+                      DisplayMemberPath="Name">
+                </ComboBox>
+                <TextBlock TextWrapping="Wrap"
+                           TextAlignment="Center"
+                           Width="100"
+                           Margin="7">День рождения в этом месяце</TextBlock>
+                <CheckBox x:Name="birthCB"
+                          Margin="7"
+                          Checked="birthCB_Checked"
+                          Unchecked="birthCB_Unchecked"></CheckBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        Margin="130,0,0,0">
+                <Button x:Name="addBtn"
+                        Content="Добавить"
+                        Click="addBtn_Click"></Button>
+                <Button x:Name="editBtn"
+                        Content="Изменить"
+                        Click="editBtn_Click"></Button>
+                <Button x:Name="deleteBtn"
+                        Content="Удалить"
+                        Click="deleteBtn_Click"></Button>
+                <Button x:Name="visitBtn"
+                        Content="Посещение"
+                        Click="visitBtn_Click"></Button>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel x:Name="mainSP"
+                    Grid.Row="1"
+                    Grid.Column="0">
+            <StackPanel Grid.Row="1"
+                    Background="#FFBACBD2"
+                    Grid.Column="0">
+                <TextBlock HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                       Margin="5"
+                   Grid.Row="0"
+                   FontWeight="ExtraBold">
+            Список клиентов
+                </TextBlock>
+                <StackPanel Orientation="Horizontal"
+                        Grid.Row="1"
+                        Grid.Column="0">
+
+                </StackPanel>
+                <ScrollViewer Grid.Row="1"
+                      HorizontalScrollBarVisibility="Visible"
+                      Height="380">
+                    <DataGrid x:Name="clientsDG"
+                      Background="#FFFFF9F1"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  MinWidth="800"
+                  Height="380">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="id"
+                                Binding="{Binding Id}" />
+                            <DataGridTextColumn Header="Пол"
+                                Binding="{Binding Path=Gender.Name}"/>
+                            <DataGridTextColumn Header="Фамилия"
+                                Binding="{Binding Firstname}"/>
+                            <DataGridTextColumn Header="Имя"
+                                Binding="{Binding Lastname}"/>
+                            <DataGridTextColumn Header="Отчество"
+                                Binding="{Binding Patronymic}"/>
+                            <DataGridTextColumn Header="Дата рождения"
+                                Binding="{Binding BirthDate,StringFormat=dd.MM.yyyy}"/>
+                            <DataGridTextColumn Header="Номер телефона"
+                                Binding="{Binding PhoneNumber}"/>
+                            <DataGridTextColumn Header="Почта"
+                                Binding="{Binding Email}"/>
+                            <DataGridTextColumn Header="Дата добавления"
+                                Binding="{Binding AddedDate, StringFormat=dd.MM.yyyy}"/>
+                            <DataGridTextColumn Header="Дата последнего посещения"
+                                        TextBlock.TextAlignment="Center"
+                                Binding="{Binding LastVisitDate, StringFormat=dd.MM.yyyy}"/>
+                            <DataGridTextColumn Header="Количество посещений"
+                                Binding="{Binding VisitsCount}"/>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ListView ItemsSource="{Binding ClientTag}">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Label Content="{Binding Tag.Name}" 
+                                                           Background="{Binding Tag.Color}"></Label>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ScrollViewer>
+                <DockPanel LastChildFill="False">
+                    <Button x:Name="leftBtn"
+                            Content="&lt;"
+                            Width="50"
+                            Margin="5"
+                            Click="leftBtn_Click"
+                            DockPanel.Dock="Left"></Button>
+                    <Button x:Name="rightBtn"
+                            Content="&gt;"
+                            Width="50" 
+                            Margin="5"
+                            Click="rightBtn_Click"
+                           DockPanel.Dock="Left"></Button>
+                    <TextBlock x:Name="ItemCount"
+                               DockPanel.Dock="Right"
+                               Margin="5"
+                               FontSize="20">
+                        10/10
+                    </TextBlock>
+                </DockPanel>
+            </StackPanel>
+        </StackPanel>
+
+        <Label Grid.Column="1"
+               Grid.RowSpan="2"
+               Background="#FFBACBD2"></Label>
+
+    </Grid>
+</Page>

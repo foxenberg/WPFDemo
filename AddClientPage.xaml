@@ -1,0 +1,145 @@
+﻿<Page x:Class="demo.Pages.AddClientPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:demo.Pages"
+      mc:Ignorable="d" 
+      MinHeight="550" MinWidth="800"
+      Title="AddClientPage">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="450"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer>
+            <StackPanel Width="300"
+                        Grid.Column="0">
+                <TextBlock>Введите информацию о новом клиенте:</TextBlock>
+                <StackPanel x:Name="idSP" 
+                    IsVisibleChanged="idSP_IsVisibleChanged">
+                    <TextBlock>Id</TextBlock>
+                    <TextBox x:Name="idTB"
+                             IsReadOnly="True"
+                         Text="{Binding Id}"
+                         Width="188" Margin="51,5,61,5"></TextBox>
+                </StackPanel>
+                <TextBlock>Фамилия</TextBlock>
+                <TextBox x:Name="surnameTB"
+                         Width="188"
+                         PreviewTextInput="surnameTB_PreviewTextInput"
+                         Text="{Binding Firstname}" Margin="51,5,61,5"></TextBox>
+                <TextBlock>Имя</TextBlock>
+                <TextBox x:Name="nameTB"
+                         Width="188"
+                         PreviewTextInput="nameTB_PreviewTextInput"
+                         Text="{Binding Lastname}" Margin="51,5,61,5"></TextBox>
+                <TextBlock>Отчество</TextBlock>
+                <TextBox x:Name="patronymicTB"
+                         Width="188"
+                         PreviewTextInput="patronymicTB_PreviewTextInput"
+                         Text="{Binding Patronymic}" Margin="51,5,61,5"></TextBox>
+                <TextBlock>Email</TextBlock>
+                <TextBox x:Name="emailTB"
+                         Width="188"
+                         PreviewTextInput="emailTB_PreviewTextInput"
+                         Text="{Binding Email}" Margin="51,5,61,5"></TextBox>
+                <TextBlock>Телефон</TextBlock>
+                <TextBox x:Name="phoneTB"
+                         Width="188" MaxLength="11"
+                         PreviewTextInput="phoneTB_PreviewTextInput"
+                         Text="{Binding PhoneNumber}" Margin="51,5,61,5"></TextBox>
+                <TextBlock>Дата рождения</TextBlock>
+                <DatePicker x:Name="dateBirthTB"
+                    Height="30"
+                    SelectedDate="{Binding BirthDate}" Margin="51,0,61,0"/>
+                <TextBlock>Пол</TextBlock>
+                <ComboBox x:Name="genderCB"
+                          SelectedItem="{Binding Gender}"
+                          DisplayMemberPath="Name"
+                      Height="30" Margin="51,0,61,0"/>
+            </StackPanel>
+        </ScrollViewer>
+        <StackPanel Grid.Column="1"
+                    Margin="30,40,30,0">
+            <TextBlock>Фотография</TextBlock>
+            <Image x:Name="photoImg"
+                   Width="250"
+                   Height="250"
+                   Source="{Binding Photo}"></Image>
+            <Button x:Name="SearchImg" 
+                    Content="Найти"
+                    Click="SearchImg_Click">
+            </Button>
+            <Button x:Name="saveBtn"
+                    Content="Сохранить" Click="saveBtn_Click"></Button>
+            <StackPanel Orientation="Horizontal">
+                <!--<StackPanel>
+                    <TextBlock>Теги</TextBlock>
+                    <ListBox x:Name="tagsCB" ItemsSource="{Binding Tag}"
+                      Width="160" Height="160" SelectionChanged="tagsCB_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Id}" 
+                                       Background="{Binding Color}"
+                                       Width="15"
+                                       Height="30"
+                                       Margin="0"></TextBlock>
+                                    <TextBlock Text="{Binding Name}" Width="130" Margin="0" Height="30"
+                                   Background="{Binding Color}"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                        --><!--SelectedItem="{Binding Tag}"
+                       Background="{Binding Tag.HEXColor}"
+                      DisplayMemberPath="Name">--><!--
+                    </ListBox>
+                </StackPanel>-->
+               
+        
+                <!--<StackPanel HorizontalAlignment="Center">
+                    <TextBlock>Выберите теги:</TextBlock>
+                    <CheckBox Content="1" Margin="40,10,0,0" x:Name="firstTag" Unchecked="firstTag_Unchecked" Checked="firstTag_Checked"></CheckBox>
+                    <CheckBox Content="2" Margin="40,10,0,0" x:Name="secindTag" Checked="secindTag_Checked"></CheckBox>
+                    <CheckBox Content="3" Margin="40,10,0,0" x:Name="threeTag"></CheckBox>
+                    <CheckBox Content="4" Margin="40,10,0,0" x:Name="fourTag"></CheckBox>
+                    <CheckBox Content="5" Margin="40,10,0,0" x:Name="fiveTag"></CheckBox>
+                </StackPanel>-->
+                <StackPanel Orientation="Horizontal">
+                    <DataGrid AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              x:Name="LVClientTag"
+                              Margin="5" SelectionChanged="LVClientTag_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Теги клиента" Width="auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}" Background="{Binding Color}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <DataGrid AutoGenerateColumns="False"
+                              IsReadOnly="True" 
+                              x:Name="LVTag"
+                              Grid.Column="1" Margin="5"
+                              SelectionChanged="LVTag_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Width="auto" Header="Все теги" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate >
+                                        <TextBlock Text="{Binding Name}" Background="{Binding Color}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </StackPanel>
+           
+        </StackPanel>
+    </Grid>
+
+</Page>
